@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Oauth::class);
     }
+
+    public function cars()
+    {
+        return $this->hasMany('App\Models\Userscar','user_id','id');
+    }
 }
