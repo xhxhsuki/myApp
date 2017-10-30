@@ -19,3 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/test', function (Request $request) {
     return 'test';
 });
+
+Route::group(['namespace' => 'Api'], function (Router $router) {
+    $router->get('/aaa', 'MainController@index');
+
+});
