@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\TestRepository;
 use Illuminate\Http\Request;
 
-class ApiController extends Controller
+class MainController extends Controller
 {
     public function index()
     {
