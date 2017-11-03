@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Store extends Model
 {
+    protected $casts = [
+        'store_sliders' => 'array',
+    ];
     public function product()
     {
         return $this->hasMany('App\Models\Product','store_id','id');

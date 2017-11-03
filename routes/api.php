@@ -23,5 +23,12 @@ Route::get('/test', function (Request $request) {
 
 Route::group(['namespace' => 'Api'], function (Router $router) {
     $router->get('/aaa', 'MainController@index');
-
+    $router->get('/articlelist', 'MainController@articlelist');
+    $router->get('/activelist', 'MainController@activelist');
+    $router->get('/articledetail', 'MainController@articledetail');
+    $router->get('/storecategory', 'MainController@storecategory');
+    $router->get('/storelist', 'MainController@storelist');
+    $router->get('/store', 'MainController@store');
+    $router->get('/product', 'MainController@product');
+    $router->get('/slider', 'MainController@sliders');
 });

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSlidersTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateSlidersTable extends Migration
      */
     public function up()
     {
-        Schema::create('sliders', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');   // ID
-            $table->string('pic');    // 图片
-            $table->string('url');    //  跳转链接
-            $table->tinyInteger('store_is_public');   // 是否公开
+            $table->tinyInteger('cate_id');    // 评论分类 1=>门店  2=>帖子  3=>车友圈
+            $table->bigInteger('pid');    // 被评论门店/帖子/车友圈id
+            $table->bigInteger('user_id');    // 评论用户id
+            $table->text('blog_comment_text');    // 评论内容
             $table->timestamps();   //   created_at 和 updated_at列
         });
     }
@@ -29,6 +30,6 @@ class CreateSlidersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sliders');
+        Schema::dropIfExists('comments');
     }
 }

@@ -19,6 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('name')->nullable();
             $table->string('phone', 20)->unique();
             $table->string('password')->nullable();
+            $table->string('position');  //坐标
+            $table->string('nickname');  //昵称
+            $table->string('head_pic');  //头像
+            $table->string('description');  //签名
+            $table->string('verify_pic');  //审核图片
+
             $table->rememberToken();
             $table->timestamps();
         });

@@ -16,7 +16,6 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');   // 文章ID
             $table->string('article_title');    // 文章标题
-            $table->string('article_subtitle');    // 文章副标题
             $table->text('article_description');    // 文章摘要
             $table->string('article_pic');    // 文章封面
             $table->bigInteger('article_views');    // 文章查看次数

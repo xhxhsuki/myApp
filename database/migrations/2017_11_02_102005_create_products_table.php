@@ -19,13 +19,10 @@ class CreateProductsTable extends Migration
             $table->string('product_name');    // 产品名称
             $table->string('product_origin_price');    // 产品原价
             $table->string('product_price');    // 产品价格
-            $table->text('product_description');    // 产品摘要
-            $table->string('product_address');    //产品地址
-            $table->string('product_tel');    //产品电话
-            $table->string('product_business_hours');    //产品营业时间
+            $table->text('product_description');    // 产品描述
             $table->string('product_pics');    // 产品封面
             $table->tinyInteger('product_is_public');   // 产品是否公开   0: 公开 1：不公开
-            $table->longText('product_content');    // 产品内容
+            $table->longText('product_content');    // 产品详情
             $table->timestamps();   // // created_at 和 updated_at列
         });
     }

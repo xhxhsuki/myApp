@@ -152,7 +152,8 @@ class AuthController extends AppController
         }
     }
 
-    protected function personalToken($credentials) {
+    protected function personalToken($credentials)
+    {
         $oauth = Oauth::where([
             ['oauth_type', '=', $credentials['oauth_type']],
             ['oauth_id', '=', $credentials['oauth_id']]

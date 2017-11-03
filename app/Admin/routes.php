@@ -12,4 +12,9 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
     $router->resource('article', ArticleController::class);
+    $router->resource('slider', SliderController::class);
+    $router->resource('store', StoreController::class);
+    $router->resource('product', ProductController::class);
+    $router->resource('storecategory', StorecategoryController::class);
+    $router->resource('active', ActiveController::class);
 });
