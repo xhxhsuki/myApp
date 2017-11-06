@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Carmodel extends Model
 {
-    public function car_model()
+    protected $table = 'car_models';
+
+    public function car_brand()
     {
         return $this->belongsTo('App\Models\Carbrand','brand_id','id');
     }

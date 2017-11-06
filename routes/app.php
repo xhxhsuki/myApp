@@ -24,6 +24,7 @@ Route::post('/request/token/{guard?}', 'AuthController@getToken');
 
 Route::post('/refresh/token/{guard?}', 'AuthController@refreshToken');
 
+Route::post('/register', 'AuthController@register');
 /**
  * 发送短信验证码
  */
@@ -50,10 +51,17 @@ Route::group(['middleware'=> ['auth:app']], function() {
     Route::get('/user', function(Request $request) {
 
         //控制器中快速获取登陆用户信息
-        // $request->user()
+        $aaa = $request->user();
+
         //获取登陆用户对象信息
-        return Auth::guard('app')->user();
+        return $aaa;
     });
+    Route::get('/userscar', 'UserController@usersCar');
+
+    Route::post('/userpics', 'UserController@uploadPic');
+    Route::post('/carverify', 'UserController@carVerify');
+    Route::post('/saveuserinfo', 'UserController@saveUserInfo');
+
 });
 
 Route::post('/socialite/token', 'AuthController@socialiteToken');

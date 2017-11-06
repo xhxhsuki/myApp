@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('Users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('avatar')->nullable();
             $table->string('name')->nullable();
@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('position');  //坐标
             $table->string('head_pic');  //头像
             $table->string('description');  //签名
-            $table->string('verify_pic');  //审核图片
             $table->string('birthday');  //生日
             $table->tinyInteger('user_is_public');   // 是否公开   0: 公开 1：不公开
             $table->rememberToken();
@@ -37,6 +36,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('Users');
     }
 }
