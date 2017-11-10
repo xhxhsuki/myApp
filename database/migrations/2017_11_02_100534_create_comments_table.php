@@ -15,7 +15,7 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');   // ID
-            $table->tinyInteger('cate_id');    // 评论分类 1=>门店  2=>帖子  3=>车友圈
+            $table->tinyInteger('cate_id');    // 评论分类 1=>门店  2=>车友圈  3=>帖子
             $table->bigInteger('pid');    // 被评论门店/帖子/车友圈id
             $table->bigInteger('user_id');    // 评论用户id
             $table->text('blog_comment_text');    // 评论内容

@@ -46,4 +46,24 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Userscar','user_id','id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment','user_id','id');
+    }
+
+    public function blogs()
+    {
+        return $this->hasMany('App\Models\Blog','user_id','id');
+    }
+
+    public function likes()
+    {
+        return $this->hasMany('App\Models\Like','user_id','id');
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany('App\Models\Blogfavorite','user_id','id');
+    }
 }

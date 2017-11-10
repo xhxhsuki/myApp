@@ -31,4 +31,5 @@ Route::group(['namespace' => 'Api'], function (Router $router) {
     $router->get('/store', 'MainController@store');
     $router->get('/product', 'MainController@product');
     $router->get('/slider', 'MainController@sliders');
+
 });

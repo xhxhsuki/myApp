@@ -31,6 +31,10 @@ Route::post('/register', 'AuthController@register');
 Route::post('/send/sms', function (Request $request) {
     return (new \App\Addon\AliyunMns\UserSms())->sendVerifyCode($request->get('phone'));
 });
+Route::get('/otherscoterie','CoterieController@othersCoterie');
+
+Route::get('/blogs', 'BlogController@index');
+Route::get('/blog/detail', 'BlogController@detail');
 
 /**
  * 需要登陆请求
@@ -62,6 +66,21 @@ Route::group(['middleware'=> ['auth:app']], function() {
     Route::post('/carverify', 'UserController@carVerify');
     Route::post('/saveuserinfo', 'UserController@saveUserInfo');
 
+    Route::get('/coteries', 'CoterieController@index');
+    Route::post('/coterie/publish', 'CoterieController@publish');
+    Route::post('/coterie/delete', 'CoterieController@delete');
+    Route::post('/coterie/comment', 'CoterieController@comment');
+    Route::post('/coterie/like', 'CoterieController@like');
+
+    Route::post('/blog/publish', 'BlogController@publish');
+    Route::post('/blog/delete', 'BlogController@delete');
+    Route::post('/blog/comment', 'BlogController@comment');
+    Route::post('/blog/like', 'BlogController@like');
+    Route::post('/blog/favorite', 'BlogController@favorite');
+    Route::get('/blog/mycomments', 'BlogController@myComments');
+    Route::get('/blog/myfavorites', 'BlogController@myFavorites');
+
+    Route::get('/userlist','UserController@userList');
 });
 
 Route::post('/socialite/token', 'AuthController@socialiteToken');

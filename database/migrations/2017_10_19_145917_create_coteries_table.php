@@ -17,6 +17,7 @@ class CreateCoteriesTable extends Migration
             $table->increments('id');   // ID
             $table->bigInteger('user_id');    // 发表用户id
             $table->text('coterie_text');    // 内容
+            $table->text('coterie_pics');    // 图片
             $table->timestamps();   //   created_at 和 updated_at列
         });
     }

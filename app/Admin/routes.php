@@ -11,6 +11,8 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index');
+    $router->get('/update', 'UpdateController@index');
+    $router->get('/updatemodel', 'UpdateController@modelUpdate');
     $router->resource('article', ArticleController::class);
     $router->resource('slider', SliderController::class);
     $router->resource('store', StoreController::class);

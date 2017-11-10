@@ -17,7 +17,7 @@ class CreateBlogFavoritesTable extends Migration
             $table->increments('id');   // ID
             $table->bigInteger('blog_id');    // 被收藏帖子id
             $table->bigInteger('user_id');    // 用户id
-            $table->tinyInteger('car_model_is_public');   // 是否公开   0: 公开 1：不公开
+            $table->tinyInteger('is_favorite');   // 是否收藏   0: 公开 1：不公开
             $table->timestamps();   //   created_at 和 updated_at列
         });
     }

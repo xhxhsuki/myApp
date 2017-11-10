@@ -15,6 +15,6 @@ class Userscar extends Model
 
     public function car()
     {
-        return $this->hasOne('App\Models\Carmodel','id','car_model_id');
+        return $this->hasOne('App\Models\Carmodel','car_model_id','car_model_id');
     }
 }
