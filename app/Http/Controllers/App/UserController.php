@@ -11,7 +11,9 @@ namespace App\Http\Controllers\App;
 
 use App\Http\Controllers\Controller;
 
+use App\Models\Carbrand;
 use App\Models\Carmodel;
+use App\Models\Comment;
 use App\Models\Coterie;
 use App\Models\User;
 use App\Models\Userscar;
@@ -20,6 +22,21 @@ use Validator;
 
 class UserController extends Controller
 {
+    public function carModel(Request $request){
+        $res = [];
+        $models = Carmodel::where('brand_id',$request->get('id'))->select('car_model_id as id','car_model_name as title')->get();
+
+        if ($models->count()) {
+            # code...
+            $res['code'] = "200";
+            $res['data'] = $models;
+        }else{
+            $res['code'] = "400";
+            $res['data'] = "获取失败";
+            return json_encode($res);
+        }
+        return json_encode($res);
+    }
     public function carVerify(Request $request){
         $res = [];
         $cars = new Userscar;
@@ -80,6 +97,28 @@ class UserController extends Controller
         }else{
             $res['code'] = "400";
             $res['data'] = "用户不存在";
+            return json_encode($res);
+        }
+        return json_encode($res);
+    }
+
+    public function storeComment(Request $request)
+    {
+        $res = [];
+        $comment = new Comment;
+        $comment->user_id = $request->user()->id;
+        $comment->cate_id = "1";
+        $comment->is_pass = "1";
+        $comment->pid = $request->get('id');
+        $comment->comment_text = $request->get('text');
+        $saved = $comment->save();
+        if ($saved) {
+            # code...
+            $res['code'] = "200";
+            $res['data'] = "保存成功";
+        }else{
+            $res['code'] = "400";
+            $res['data'] = "保存失败";
             return json_encode($res);
         }
         return json_encode($res);
@@ -175,12 +214,14 @@ class UserController extends Controller
         $userlist = User::where(['city'=>$request->get('city')])->where('id','!=', [$request->user()->id])->get();
 
         $position = explode(",",$request->get('position'));
-        foreach ($userlist as $user){
-            if (){
-
-            }
+        foreach ($userlist as $key => $user){
             $userposition = explode(",",$user->position);
-            $user['length'] = $this->distanceBetween($position[0],$position[1],$userposition[0],$userposition[1]);
+            $cars = Userscar::where('user_id',$user->id)->pluck('car_model_id');
+            if (in_array($request->get('model'),$cars->toArray())){
+                $user['length'] = $this->distanceBetween($position[0],$position[1],$userposition[0],$userposition[1]);
+            }else{
+                unset($userlist[$key]);
+            }
         }
         $sorted = $userlist->sortBy(function ($product, $key) {
             return $product['length'];

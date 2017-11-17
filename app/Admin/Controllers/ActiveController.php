@@ -99,7 +99,7 @@ class ActiveController extends Controller
             $form->text('active_title','活动标题');
             $timename = date('Ymd');
             $form->image('active_pic','活动封面')->move('active/'.$timename)->uniqueName();
-            $form->text('active_store_id','店id');
+            $form->text('active_url_id','店id');
             $statess = [
                 'on'  => ['value' => 0, 'text' => '是', 'color' => 'success'],
                 'off' => ['value' => 1, 'text' => '否', 'color' => 'danger'],

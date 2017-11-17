@@ -13,9 +13,9 @@ use App\Models\User;
 
 class TestRepository
 {
-    public function data($data)
+    public function data()
     {
-        return User::where();
+        return "ab";
     }
 
     public function add($data)

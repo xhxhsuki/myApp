@@ -75,7 +75,7 @@ class MainController extends Controller
     public function activelist()
     {
         $res = [];
-        $actives = Active::where('active_is_public','0')->orderBy('active_order','desc')->select('id','active_title','active_pic','active_store_id')->paginate(10);
+        $actives = Active::where('active_is_public','0')->orderBy('active_order','desc')->select('id','active_title','active_pic','active_url_id')->paginate(10);
         if ($actives->count()) {
             $res['code'] = "200";
             $res['data'] = $actives;
@@ -106,7 +106,9 @@ class MainController extends Controller
     {
         $res = [];
         $store = Store::where(['store_is_public'=>'0','id'=>$request->get('id')])->get();
-        $comments = Comment::where(['cate_id'=>'1','pid'=>$request->get('id')])->select('id','user_id','comment_text','created_at')->get();
+        $comments = Comment::where(['cate_id'=>'1','is_pass'=>'0','pid'=>$request->get('id')])->select('id','user_id','comment_text','created_at')->get()->each(function ($item,$key){
+            $item->user;
+        });;
         $products = Product::where(['product_is_public'=>'0','store_id'=>$request->get('id')])->select('id','product_name','product_pics','product_origin_price','product_price')->get();
         if ($store->count()) {
             $res['code'] = "200";
@@ -139,10 +141,12 @@ class MainController extends Controller
     public function sliders(Request $request)
     {
         $res = [];
-        $sliders = Slider::where('slider_is_public','0')->select('id','pic','url')->get();
+        $sliders = Slider::where(['slider_is_public'=>'0','cate'=>'1'])->select('pic','forwhat','url')->get();
+        $blocks = Slider::where(['slider_is_public'=>'0','cate'=>'2'])->select('pic','forwhat','url')->get();
         if ($sliders) {
             $res['code'] = "200";
-            $res['data'] = $sliders;
+            $res['data']['sliders'] = $sliders;
+            $res['data']['blocks'] = $blocks;
         }else{
             $res['code'] = "404";
             $res['data'] = "暂无数据";

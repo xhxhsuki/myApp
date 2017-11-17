@@ -11,7 +11,7 @@ use Encore\Admin\Layout\Content;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\ModelForm;
 
-class SliderController extends Controller
+class BreadController extends Controller
 {
     use ModelForm;
 
@@ -72,11 +72,10 @@ class SliderController extends Controller
     protected function grid()
     {
         return Admin::grid(Slider::class, function (Grid $grid) {
-
+            $grid->model()->where('cate', '2');
             $grid->id('ID')->sortable();
             $grid->pic('轮播图')->image();
-            $grid->model()->where('cate', '1');
-            $grid->updated_at();
+            $grid->updated_at('更新时间');
         });
     }
 
@@ -90,10 +89,10 @@ class SliderController extends Controller
         return Admin::form(Slider::class, function (Form $form) {
 
             $form->display('id', 'ID');
-            $form->hidden('cate')->value('1');
-            $form->text('forwhat','选项'); // 0 => 店铺活动， 1 => 店铺列表， 2 => 文章页
+            $form->hidden('cate')->value('2');
             $timename = date('Ymd');
             $form->image('pic','图片')->move('slider/'.$timename)->uniqueName();
+            $form->text('forwhat','选项'); // 0 => 店铺活动， 1 => 店铺列表， 2 => 文章页
             $form->text('url','url');
             $statess = [
                 'on'  => ['value' => 0, 'text' => '是', 'color' => 'success'],

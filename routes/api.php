@@ -22,6 +22,7 @@ Route::get('/test', function (Request $request) {
 });
 
 Route::group(['namespace' => 'Api'], function (Router $router) {
+    $router->get('/aaaa', 'MainController@update');
     $router->get('/aaa', 'MainController@index');
     $router->get('/articlelist', 'MainController@articlelist');
     $router->get('/activelist', 'MainController@activelist');

@@ -36,6 +36,25 @@ class BlogController extends Controller
         return json_encode($res);
     }
 
+    public function search(Request $request)
+    {
+        $res = [];
+        $blogs = Blog::where(['model_id'=>$request->get('model')])->where('blog_title','like',"%".$request->get('text')."%")->paginate(6);
+        foreach ($blogs as $blog){
+            $blog['user'] = $blog->user;
+            $blog['comments'] = Comment::where(['cate_id'=>'3','pid'=>$blog->id])->count();
+        }
+        if ($blogs->count()) {
+            $res['code'] = "200";
+            $res['data'] = $blogs;
+        }else{
+            $res['code'] = "400";
+            $res['data'] = "暂无数据";
+            return json_encode($res);
+        }
+        return json_encode($res);
+    }
+
     public function detail(Request $request)
     {
         $res = [];
@@ -46,6 +65,16 @@ class BlogController extends Controller
                 $item->user;
                 $item['likes'] = Like::where(['is_like'=>'0','cate_id'=>'3','pid'=>$item->id])->count();
             });
+            $favorite = Blogfavorite::where(['blog_id'=>$request->get('id'),'user_id'=>$request->user()->id])->get();
+            if ($favorite->count()){
+                if ($favorite->first()->is_favorite == "0"){
+                    $blog['is_favorite'] = "0";
+                }else{
+                    $blog['is_favorite'] = "1";
+                }
+            }else{
+                $blog['is_favorite'] = "1";
+            }
             $res['code'] = "200";
             $res['data'] = $blog;
         }else{
@@ -122,9 +151,9 @@ class BlogController extends Controller
     public function myComments(Request $request)
     {
         $res = [];
-        $comments = Comment::where(['user_id'=>$request->user()->id,'cate_id'=>'3'])->select('pid','comment_text')->paginate(10);
+        $comments = Comment::where(['user_id'=>$request->user()->id,'cate_id'=>'3'])->select('id','pid','comment_text')->paginate(10);
         foreach ($comments as $comment){
-            $comment['blog'] = Blog::where('id',$comment->pid)->first()->id;
+            $comment['blogtitle'] = Blog::where('id',$comment->pid)->first()->blog_title;
         }
         if ($comments->count()) {
             # code...

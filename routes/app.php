@@ -34,8 +34,9 @@ Route::post('/send/sms', function (Request $request) {
 Route::get('/otherscoterie','CoterieController@othersCoterie');
 
 Route::get('/blogs', 'BlogController@index');
-Route::get('/blog/detail', 'BlogController@detail');
 
+Route::get('/carmodels', 'UserController@carModel');
+Route::get('/blog/search', 'BlogController@search');
 /**
  * 需要登陆请求
  * 请求头请带有如下信息
@@ -81,6 +82,8 @@ Route::group(['middleware'=> ['auth:app']], function() {
     Route::get('/blog/myfavorites', 'BlogController@myFavorites');
 
     Route::get('/userlist','UserController@userList');
+    Route::post('/storecomment', 'UserController@storeComment');
+    Route::get('/blog/detail', 'BlogController@detail');
 });
 
 Route::post('/socialite/token', 'AuthController@socialiteToken');
